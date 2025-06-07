@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Undangan Perayaan Ustadzah</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap');
+    :root {
+      --color-bg: #ffffff;
+      --color-text-primary: #111827;
+      --color-text-secondary: #6b7280;
+      --color-accent: #2563eb;
+      --color-accent-hover: #1e40af;
+      --radius: 0.75rem;
+      --shadow-light: 0 1px 3px rgba(0,0,0,0.1);
+      --shadow-medium: 0 4px 12px rgba(0,0,0,0.1);
+      --transition: 0.3s ease;
+      --max-width: 1200px;
+      --font-family: 'Poppins', sans-serif;
+    }
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      background-color: var(--color-bg);
+      font-family: var(--font-family);
+      color: var(--color-text-primary);
+      line-height: 1.6;
+      font-size: 18px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a {
+      color: var(--color-accent);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    a:hover,
+    a:focus {
+      color: var(--color-accent-hover);
+      outline: none;
+    }
+    nav {
+      position: sticky;
+      top: 0;
+      background: var(--color-bg);
+      box-shadow: var(--shadow-light);
+      z-index: 10;
+      padding: 1rem 2rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    nav .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--color-text-primary);
+      user-select: none;
+    }
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    nav ul li a {
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius);
+      transition: background-color var(--transition), color var(--transition);
+      cursor: pointer;
+    }
+    nav ul li a:hover,
+    nav ul li a:focus {
+      background-color: var(--color-accent);
+      color: white;
+      outline: none;
+    }
+    main {
+      max-width: var(--max-width);
+      margin: 2rem auto 4rem;
+      padding: 0 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+      flex-grow: 1;
+    }
+    section {
+      background: var(--color-bg);
+      box-shadow: var(--shadow-medium);
+      border-radius: var(--radius);
+      padding: 2.5rem 3rem;
+    }
+    .hero {
+      text-align: center;
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
+    .hero h1 {
+      font-weight: 800;
+      font-size: 3.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--color-text-primary);
+      line-height: 1.1;
+    }
+    .hero p {
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      font-size: 1.25rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    dl {
+      color: var(--color-text-primary);
+      max-width: 540px;
+      margin: 0 auto;
+    }
+    dt {
+      font-weight: 700;
+      margin-top: 1rem;
+      font-size: 1.125rem;
+    }
+    dd {
+      margin: 0.25rem 0 0 0;
+      font-size: 1rem;
+      color: var(--color-text-secondary);
+    }
+    form {
+      max-width: 540px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    label {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--color-text-primary);
+    }
+    input[type="text"],
+    input[type="email"] {
+      padding: 0.6rem 1rem;
+      font-size: 1rem;
+      border-radius: var(--radius);
+      border: 1.5px solid #d1d5db;
+      outline-offset: 2px;
+      transition: border-color var(--transition);
+      font-family: var(--font-family);
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus {
+      border-color: var(--color-accent);
+      outline: none;
+      box-shadow: 0 0 5px var(--color-accent);
+    }
+    button[type="submit"], button#toggle-guestlist {
+      margin-top: 1rem;
+      background-color: var(--color-accent);
+      color: white;
+      font-weight: 700;
+      font-size: 1.125rem;
+      border: none;
+      border-radius: var(--radius);
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      transition: background-color var(--transition), transform var(--transition);
+    }
+    button[type="submit"]:hover,
+    button[type="submit"]:focus,
+    button#toggle-guestlist:hover,
+    button#toggle-guestlist:focus {
+      background-color: var(--color-accent-hover);
+      transform: scale(1.05);
+      outline: none;
+    }
+    #guest-list-section {
+      max-width: 700px;
+      margin: 0 auto;
+      display: none;
+      flex-direction: column;
+    }
+    #guest-list-section.visible {
+      display: flex;
+    }
+    #guest-list-section h2 {
+      font-weight: 700;
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+      color: var(--color-text-primary);
+      text-align: center;
+    }
+    #guest-list {
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto;
+      box-shadow: var(--shadow-light);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    #guest-list th, #guest-list td {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #e5e7eb;
+      font-size: 1rem;
+      color: var(--color-text-primary);
+    }
+    #guest-list th {
+      background-color: #f9fafb;
+      font-weight: 700;
+      color: var(--color-text-primary);
+    }
+    #guest-list tr:nth-child(even) {
+      background-color: #f9fafb;
+    }
+    @media (max-width: 640px) {
+      .hero h1 {
+        font-size: 2.25rem;
+      }
+      .hero p {
+        font-size: 1rem;
+        max-width: 100%;
+      }
+      section {
+        padding: 1.5rem 1.5rem;
+      }
+      #guest-list th, #guest-list td {
+        font-size: 0.9rem;
+        padding: 0.5rem 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav role="navigation" aria-label="Navigasi utama">
+  <div class="logo" tabindex="0">Perayaan Ustadzah</div>
+  <ul style="list-style:none; display:flex; gap:2rem; align-items:center; margin:0; padding:0;">
+    <li><a href="#undangan">Undangan</a></li>
+    <li><a href="#konfirmasi">Konfirmasi</a></li>
+    <li><button id="toggle-guestlist" aria-pressed="false" aria-controls="guest-list-section" title="Tampilkan daftar tamu yang sudah konfirmasi">Tampilkan Daftar Tamu</button></li>
+  </ul>
+</nav>
+
+<main>
+  <section class="hero" id="undangan" aria-label="Undangan Perayaan Ustadzah">
+    <h1>Undangan Perayaan Ustadzah</h1>
+    <p>Mari bergabung bersama kami untuk merayakan ustadzah tercinta yang selalu membimbing dan menginspirasi.</p>
+  </section>
+
+  <section id="konfirmasi" aria-label="Form Konfirmasi Kehadiran">
+    <form id="rsvp-form" aria-describedby="rsvp-desc">
+      <h2>Konfirmasi Kehadiran</h2>
+      <p id="rsvp-desc" style="color: var(--color-text-secondary);">Silakan isi nama dan email Anda (email opsional) untuk konfirmasi kehadiran.</p>
+      <label for="name">Nama Lengkap <span aria-hidden="true" style="color:#d00000;">*</span></label>
+      <input type="text" id="name" name="name" required placeholder="Masukkan nama lengkap" aria-required="true" autocomplete="name" />
+      
+      <label for="email">Email (opsional)</label>
+      <input type="email" id="email" name="email" placeholder="Masukkan email Anda" autocomplete="email" />
+
+      <button type="submit" aria-label="Kirim konfirmasi kehadiran">Kirim</button>
+    </form>
+  </section>
+
+  <section id="guest-list-section" aria-label="Daftar Tamu yang Konfirmasi">
+    <h2>Daftar Tamu yang Telah Konfirmasi</h2>
+    <table id="guest-list" aria-describedby="guest-list-desc">
+      <caption id="guest-list-desc" class="sr-only">Daftar tamu yang sudah melakukan konfirmasi kehadiran acara perayaan ustadzah.</caption>
+      <thead>
+        <tr><th>No</th><th>Nama</th><th>Email</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <p id="no-guests-msg" style="text-align:center; color: var(--color-text-secondary); display:none;">Belum ada tamu yang konfirmasi.</p>
+  </section>
+
+  <section style="max-width:540px; margin: 2rem auto 0; text-align:center; font-size:0.9rem; color:#6b7280;">
+    <p>&copy; 2024 Undangan Perayaan Ustadzah</p>
+  </section>
+</main>
+
+<script>
+  (function(){
+    const form = document.getElementById('rsvp-form');
+    const guestListSection = document.getElementById('guest-list-section');
+    const guestTableBody = guestListSection.querySelector('tbody');
+    const noGuestsMsg = document.getElementById('no-guests-msg');
+    const toggleGuestListBtn = document.getElementById('toggle-guestlist');
+
+    // Kunci untuk localStorage
+    const STORAGE_KEY = 'undanganUstadzahGuests';
+
+    // Tampilkan/sembunyikan daftar tamu
+    let guestListVisible = false;
+    toggleGuestListBtn.addEventListener('click', () => {
+      guestListVisible = !guestListVisible;
+      if(guestListVisible){
+        loadGuestList();
+        guestListSection.classList.add('visible');
+        toggleGuestListBtn.textContent = 'Sembunyikan Daftar Tamu';
+        toggleGuestListBtn.setAttribute('aria-pressed', 'true');
+        toggleGuestListBtn.setAttribute('title', 'Sembunyikan daftar tamu');
+      } else {
+        guestListSection.classList.remove('visible');
+        toggleGuestListBtn.textContent = 'Tampilkan Daftar Tamu';
+        toggleGuestListBtn.setAttribute('aria-pressed', 'false');
+        toggleGuestListBtn.setAttribute('title', 'Tampilkan daftar tamu yang sudah konfirmasi');
+      }
+    });
+
+    // Memuat daftar tamu dari localStorage dan menampilkannya
+    function loadGuestList(){
+      const guestsRaw = localStorage.getItem(STORAGE_KEY);
+      let guests = [];
+      if(guestsRaw){
+        try{
+          guests = JSON.parse(guestsRaw);
+        }catch(e){}
+      }
+      guestTableBody.innerHTML = '';
+      if(guests.length === 0){
+        noGuestsMsg.style.display = 'block';
+        return;
+      } else {
+        noGuestsMsg.style.display = 'none';
+      }
+      guests.forEach((guest, index) => {
+        const tr = document.createElement('tr');
+        const noTd = document.createElement('td');
+        noTd.textContent = index + 1;
+        const nameTd = document.createElement('td');
+        nameTd.textContent = guest.name;
+        const emailTd = document.createElement('td');
+        emailTd.textContent = guest.email || '-';
+        tr.appendChild(noTd);
+        tr.appendChild(nameTd);
+        tr.appendChild(emailTd);
+        guestTableBody.appendChild(tr);
+      });
+    }
+
+    // Menyimpan tamu ke localStorage
+    function saveGuest(guest){
+      let guests = [];
+      const guestsRaw = localStorage.getItem(STORAGE_KEY);
+      if(guestsRaw){
+        try{
+          guests = JSON.parse(guestsRaw);
+        }catch(e){}
+      }
+      // Menghindari duplikasi berdasarkan nama dan email
+      if(!guests.some(g => g.name.toLowerCase() === guest.name.toLowerCase() && (g.email?.toLowerCase() === guest.email?.toLowerCase()))){
+        guests.push(guest);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(guests));
+      }
+    }
+
+    // Menangani pengiriman formulir
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      if(name.length === 0){
+        alert('Nama harus diisi.');
+        form.name.focus();
+        return;
+      }
+      // Validasi format email jika diisi
+      if(email.length > 0){
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if(!emailPattern.test(email)){
+          alert('Format email tidak valid.');
+          form.email.focus();
+          return;
+        }
+      }
+
+      saveGuest({name, email});
+      alert('Terima kasih atas konfirmasi kehadiran Anda!');
+      form.reset();
+      // Jika bagian daftar tamu terlihat, muat ulang daftar tamu
+      if(guestListVisible){
+        loadGuestList();
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>
